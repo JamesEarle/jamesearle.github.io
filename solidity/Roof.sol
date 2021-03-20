@@ -1,14 +1,32 @@
 //SPDX-License-Identifier: UNLICENSED
 pragma solidity >0.7.0 <=0.9.0;
 pragma experimental ABIEncoderV2;
-import "https://github.com/JamesEarle/jamesearle.github.io/blob/main/solidity/IChargedParticleBroker.sol";
+// import "https://github.com/JamesEarle/jamesearle.github.io/blob/main/solidity/IChargedParticleBroker.sol";
 import "./IRoof.sol";
+import ".IChargedParticleBroker.sol"
 
 contract Roof is IRoof {
     
-   // IChargedParticleBroker Broker; 
+    // IChargedParticleBroker Broker; 
+    address indexed tenant;
+    address indexed landlord;
 
-    function createRental () external override returns (string memory _accesshash){
+    event SetOwner (address _owner)
+
+    modifier isOwner () {
+        require(msg.sender == owner, "Caller is not owner");
+        _;
+    }
+
+    struct Lease {
+        address indexed tenant;
+        address indexed landlord;
+        uint256 rent;
+        uint256 deposit;
+        string duration;
+    }
+
+    function createRental (address _tenant, address _landlord) external override returns (string memory _accesshash) {
         //take the rental info and submit the right data to create a lease deposit
     }
     
@@ -43,6 +61,5 @@ contract Roof is IRoof {
     function setInterestPayoutPreference () external override returns (uint256 _date){
         //internal roof operation
     }  
-    
     
 }
