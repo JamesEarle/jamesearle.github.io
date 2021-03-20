@@ -20,6 +20,7 @@ setTimeout(() => {
 }, 100)
 
 connectButton.onclick = async function () {
+    console.log("abc");
     // Log some information about ethereum
     console.log(ethereum.isConnected());
     console.log(ethereum.networkVersion);
@@ -32,14 +33,14 @@ connectButton.onclick = async function () {
     addressElement.textContent += address;
 };
 
-const chainId = await ethereum.request({
-    method: "eth_chainId"
-});
+// const chainId = await ethereum.request({
+//     method: "eth_chainId"
+// });
 
-handleChainChanged(chainId);
+// handleChainChanged(chainId);
 
-ethereum.on("chainChanged", handleChainChanged);
+// ethereum.on("chainChanged", handleChainChanged);
 
-function handleChainChanged(_chainId) {
-    window.location.reload();
-}
+// function handleChainChanged(_chainId) {
+//     window.location.reload();
+// }
