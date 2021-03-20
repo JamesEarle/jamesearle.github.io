@@ -1,11 +1,11 @@
 //SPDX-License-Identifier: UNLICENSED
-pragma solidity >0.7.0 <=0.9.0; 
+pragma solidity => 0.7.4 <= 0.9.0;
 pragma experimental ABIEncoderV2;
 // import "https://github.com/JamesEarle/jamesearle.github.io/blob/main/solidity/IChargedParticleBroker.sol";
 import "./IRoof.sol";
 // import ".IChargedParticleBroker.sol";
 
-contract Roof { // 
+abstract contract Roof is IRoof {
     
     address private tenant;
     address private landlord;
@@ -66,5 +66,53 @@ contract Roof { //
         return accessHash;
     }
     
+    function endRental (address _lease) external returns (uint256 _depositAmount, uint256 _interestAmount) {
+        
+    }
+    
+    function numberArray() internal returns (uint256 [] memory _array) {
+        uint256 [] memory numbers = new uint256[](3);
+        numbers[0] = 1;
+        numbers[1] = 2;
+        numbers[2] = 3;
+        return numbers;
+    }
+    
+    function stringArray() internal returns (string [] memory _array) {
+        string [] memory strings = new string[](3);
+        strings[0] = "a";
+        strings[1] = "b";
+        strings[2] = "c";
+        return strings;
+    }
+    
+    function payRent () override external returns (uint256 _paymentReference) {
+        return block.timestamp;
+    }
+    
+    function getEarningsData () override external returns (uint256 [] memory _depositAmount, uint256 [] memory _interestAccrued, uint256 [] memory _retrievalDate) {
+        return (numberArray(), numberArray(), numberArray());
+    }
+    
+    function giveNotice () override external returns (uint256 _noticeReference, uint256 _date) {
+        return (1, 2);
+    }
+    
+    function getLandlordLeaseData () override external returns (string [] memory _leaseID, uint256 [] memory _leaseStartDate, uint256 [] memory _leaseEndDate, uint256 [] memory _rentalAmount, uint256 [] memory _depositAmount, string [] memory _rentPaymentStatus, string [] memory _leaseStatus) {
+        return (stringArray(), numberArray(), numberArray(), numberArray(), numberArray(), stringArray(), stringArray());
+    }
+    
+    // Is this the same as above?
+    function getLeaseDetail () override external returns (string memory _leaseID, string memory _address, string memory _tenantReference, uint256 _noticeReference, uint256 noticePeriod, uint256 _depositPayDate, uint256 _rentPayDate, uint256 _leaseStartDate, uint256 _leaseEndDate ) {
+        return ("asd", "0xasdasfghasd", "tenantReference", 123, 3, 20210101, 20210401, 20210401, 2022031);
+    }
+    
+    function payDeposit () override external returns (uint256 _paymentReference) {
+        return (123456);
+    }
+    
+    function setInterestPayoutPreference () override external returns (uint256 _date) {
+        return (7890);
+    }
     
 }
