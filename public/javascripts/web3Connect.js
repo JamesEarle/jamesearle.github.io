@@ -1,13 +1,24 @@
-// import web3 from 'web3';
-
+// const web3 = require('web3');
 if (!ethereum || !window.ethereum) {
-    throw new Error("MetaMask");
+    throw new Error("Please install MetaMask");
 }
 
 console.log("MetaMask is installed");
 
-let address;
+let contract; 
+let accountAddress;
 
+// Kovan test network contract deployment address
+let contractAddress = "0xBfA6d18D43378BB11C96933f4E0871C27cD1536e";
+
+function init() {
+    contractAbiJson = await JSON.parse(contractAbi.toString());
+    console.log("Got contract ABI");
+    contract = new web3.eth.Contract(contractAbi, contractAddress);
+    console.log("Got contract ABI");
+}
+
+init()
 // Get address HTML Elements
 let connectButton = document.getElementById("connectAccount");
 let addressElement = document.getElementById("address");
@@ -20,27 +31,14 @@ setTimeout(() => {
 }, 100)
 
 connectButton.onclick = async function () {
-    console.log("abc");
     // Log some information about ethereum
     console.log(ethereum.isConnected());
     console.log(ethereum.networkVersion);
     console.log(ethereum.selectedAddress);
 
     // Prompt connection with MetaMask
-    address = await ethereum.request({ method: 'eth_requestAccounts' });
-    
+    accountAddress = await ethereum.request({ method: 'eth_requestAccounts' });
+
     console.log(address);
-    addressElement.textContent += address;
+    addressElement.textContent += accountAddress;
 };
-
-// const chainId = await ethereum.request({
-//     method: "eth_chainId"
-// });
-
-// handleChainChanged(chainId);
-
-// ethereum.on("chainChanged", handleChainChanged);
-
-// function handleChainChanged(_chainId) {
-//     window.location.reload();
-// }
